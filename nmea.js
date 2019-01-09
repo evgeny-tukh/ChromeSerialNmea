@@ -207,12 +207,95 @@ VTG.prototype.parse = function (sentence)
     return modeIndicator !== null;
 };
 
+function VHW ()
+{
+    NmeaParser.apply (this, ['VHW']);    
+}
+
+VHW.prototype = Object.create (NmeaParser.prototype);
+
+VHW.prototype.parse = function (sentence)
+{
+    var heading     = sentence.extractFloat (1);
+    var speedTW     = sentence.extractFloat (5);
+    var headingType = sentence.extractChar (2);
+    var speedType   = sentence.extractChar (6);
+
+    if (headingType === 'T' && Math.abs (heading) <= 180)
+        dataStorage.update (DataStorage.types.HDG, heading);
+
+    if (speedType == 'N')
+        dataStorage.update (DataStorage.types.STW, speedTW);
+
+    return true;
+};
+
+function HDT ()
+{
+    NmeaParser.apply (this, ['HDT']);    
+}
+
+HDT.prototype = Object.create (NmeaParser.prototype);
+
+HDT.prototype.parse = function (sentence)
+{
+    var headingType = sentence.extractChar (2);
+    var heading     = sentence.extractFloat (1);
+    var result;
+
+    if (headingType === 'T' && Math.abs (heading) <= 360)
+    {
+        result = true;
+
+        dataStorage.update (DataStorage.types.HDG, heading);
+    }
+    else
+    {
+        result = false;
+    }
+
+    return result;
+};
+
+function THS ()
+{
+    NmeaParser.apply (this, ['THS']);    
+}
+
+THS.prototype = Object.create (NmeaParser.prototype);
+
+THS.prototype.parse = function (sentence)
+{
+    var gyroMode = sentence.extractChar (2);
+    var heading  = sentence.extractFloat (1);
+    var result;
+
+    if (gyroMode)
+        dataStorage.update (DataStorage.types.GyroMode, gyroMode);
+
+    if (gyroMode === 'A' && Math.abs (heading) <= 360)
+    {
+        result = true;
+
+        dataStorage.update (DataStorage.types.HDG, heading);
+    }
+    else
+    {
+        result = false;
+    }
+
+    return result;
+};
+
 function NmeaParsers ()
 {
     this.parsers = {};
 
     NmeaParsers.prototype.add.apply (this, [new GLL ()]);
     NmeaParsers.prototype.add.apply (this, [new VTG ()]);
+    NmeaParsers.prototype.add.apply (this, [new HDT ()]);
+    NmeaParsers.prototype.add.apply (this, [new THS ()]);
+    NmeaParsers.prototype.add.apply (this, [new VHW ()]);
 }
 
 NmeaParsers.prototype.add = function (parser)
