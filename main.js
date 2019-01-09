@@ -2,6 +2,7 @@ var port     = new SerialPort ();
 var terminal = null;
 var pause    = null;
 var paused   = true;
+var updater  = null;
 
 port.onReceive = function (arrayBuffer)
 {
@@ -10,6 +11,8 @@ port.onReceive = function (arrayBuffer)
     var i;
 
     for (i = 0, data = ''; i < byteBuffer.length; data += String.fromCharCode (byteBuffer [i++]));
+
+    parsers.parse (data);
 
     if (!paused)
     {
@@ -23,6 +26,8 @@ port.onReceive = function (arrayBuffer)
 
 window.onload = function ()
                 {
+                    initNmea ();
+
                     SerialPort.enumPorts (onPortListLoaded);
 
                     document.getElementById ('openClose').onclick = onOpenClose;
@@ -31,6 +36,8 @@ window.onload = function ()
                     pause    = document.getElementById ('startStopTerminal');
 
                     pause.onclick = onPauseResumeTerminal;
+
+                    updater = setInterval (onUpdate, 1000);
 
                     function onPortListLoaded (ports)
                     {
@@ -47,7 +54,17 @@ window.onload = function ()
                         }
                     }
 
+                    function onUpdate ()
+                    {
+                        for (var typeKey in DataStorage.types)
+                        {
+                            var type = DataStorage.types [typeKey];
+                            var cell = document.getElementById (type);
 
+                            if (cell)
+                                cell.innerText = dataStorage.getTextValue (type);
+                        }
+                    }
                 };
 
 function onOpenClose ()

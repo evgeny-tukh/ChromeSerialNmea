@@ -7,6 +7,7 @@
         <!-- <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="demo.css"> -->
 
+        <script src="nmea.js"></script>
         <script src="serial.js"></script>
         <script src="main.js"></script>
 
@@ -37,10 +38,9 @@
                 border-width:		2px;
                 border-style:		solid;
                 border-radius:		3px;
-                font-size:		15pt;
                 text-align:		center;
-                padding:		5px;
                 margin:			5px;
+                padding:		10px;
             }
 
             .portSettings
@@ -48,20 +48,49 @@
                 position:		absolute;
                 top:			50px;
                 left:			0px;
-                width:			230px;
+                width:			180px;
                 height:			fit-content;
+                font-size:		15pt;
+            }
+
+            .dataSheet
+            {
+                position:		absolute;
+                top:			285px;
+                left:			0px;
+                width:			180px;
+                height:			230px;
+                font-size:		15pt;
+            }
+
+            .cell
+            {
+                padding-top:            0px;
+                padding-bottom:         0px;
+                padding-left:           0px;
+                padding-right:          0px;
+                margin-top:             0px;
+                margin-bottom:          0px;
+                margin-left:            0px;
+                margin-right:           0px;
+                font-size:              11pt;
+                /*border-style:           solid;
+                border-width:           1px;
+                border-color:           gray;*/
             }
 
             .terminal
             {
                 position:		absolute;
                 top:			50px;
-                left:			250px;
+                left:			210px;
                 right:			10px;
                 height:			205px;
                 overflow-x:		hide;
                 overflow-y:		scroll;
                 text-align:             left;
+                margin-right:           0px;
+                font-size:		12pt;
             }
 
             .controlBox
@@ -83,7 +112,7 @@
             .control
             {
                 float:			right;
-                width:			100px;
+                width:			80px;
                 heght:			fit-content;
                 padding:		0px;
                 margin:			0px;
@@ -93,14 +122,14 @@
             {
                 background-color:	blue;
                 color:			white;
-		font-size:		12pt;
+		font-size:		11pt;
 		width:			fit-content;
 		margin:			0px;
-		margin-right:		10px;
+		margin-right:		6px;
 		height:			25px;
-		padding:		2px;
-		padding-left:		10px;
-		padding-right:		10px;
+		padding:		3px;
+		padding-left:		7px;
+		padding-right:		7px;
 		text-align:		center;
 		border-style:		none;
 		border-radius:		3px;
@@ -175,6 +204,59 @@
             <button class="button" id="startStopTerminal">Start terminal</button>
         </div>
         <div class="groupBox terminal" id="terminal">
+        </div>
+        <div class="groupBox dataSheet">
+            Data
+
+            <div class="controlBox cell">
+                UTC
+
+                <div id="utc" class="control cell">
+                    N/A
+                </div>
+            </div>
+            <div class="controlBox cell">
+                Lat
+
+                <div id="lat" class="control cell">
+                    N/A
+                </div>
+            </div>
+            <div class="controlBox cell">
+                Lon
+
+                <div id="lon" class="control cell">
+                    N/A
+                </div>
+            </div>
+            <div class="controlBox cell">
+                COG
+
+                <div id="cog" class="control cell">
+                    N/A
+                </div>
+            </div>
+            <div class="controlBox cell">
+                HDG
+
+                <div id="hdg" class="control cell">
+                    N/A
+                </div>
+            </div>
+            <div class="controlBox cell">
+                SOG
+
+                <div id="sog" class="control cell">
+                    N/A
+                </div>
+            </div>
+            <div class="controlBox cell">
+                STW
+
+                <div id="stw" class="control cell">
+                    N/A
+                </div>
+            </div>
         </div>
     </body>
 </html>
