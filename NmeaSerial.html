@@ -2,11 +2,17 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <!--<meta http-equiv="Content-Security-Policy" content="script-src-elem 'self' 'unsafe-inline';">
+        <!--<meta http-equiv="Content-Security-Policy" content="script-src-elem 'nonce-abc' 'self' 'unsafe-inline'; script-src-attr 'unsafe-inline'"> -->
+
         <title>NMEA 0183 Serial Reader & Parser</title>
 
         <!-- <link rel="stylesheet" href="bootstrap.min.css">
         <link rel="stylesheet" href="demo.css"> -->
 
+        <!--<script src="https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyCsZWmFuiHNNNIh5GSgkz6bhJuWhbtk21g"></script>-->
+        <script src="util.js"></script>
+        <script src="ds.js"></script>
         <script src="nmea.js"></script>
         <script src="serial.js"></script>
         <script src="main.js"></script>
@@ -79,6 +85,15 @@
                 border-color:           gray;*/
             }
 
+            .map
+            {
+                position:		absolute;
+                top:			285px;
+                left:			210px;
+                right:			10px;
+                height:			230px;
+            }
+
             .terminal
             {
                 position:		absolute;
@@ -136,7 +151,6 @@
                 border-width:		0px;
 		float:			right;
             }
-
         </style>
     </head>
     <body>
@@ -204,6 +218,8 @@
             <button class="button" id="startStopTerminal">Start terminal</button>
         </div>
         <div class="groupBox terminal" id="terminal">
+        </div>
+        <div id="mapDiv" class="groupBox map">
         </div>
         <div class="groupBox dataSheet">
             Data

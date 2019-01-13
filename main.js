@@ -3,6 +3,8 @@ var terminal = null;
 var pause    = null;
 var paused   = true;
 var updater  = null;
+var map      = null;
+var googleApi;
 
 port.onReceive = function (arrayBuffer)
 {
@@ -26,7 +28,10 @@ port.onReceive = function (arrayBuffer)
 
 window.onload = function ()
                 {
+                    setDataStorage (dataStorage);
+
                     initNmea ();
+                    initGoogleMaps ();
 
                     SerialPort.enumPorts (onPortListLoaded);
 
@@ -90,4 +95,20 @@ function onPauseResumeTerminal ()
     paused = !paused;
 
     pause.innerText = paused ? 'Start terminal' : 'Stop terminal';
+}
+
+function initGoogleMaps ()
+{
+    /*googleApi = document.createElement ('script');
+
+    document.head.appendChild (googleApi);
+
+    googleApi.type   = 'text/javascript';
+    googleApi.src    = 'https://maps.googleapis.com/maps/api/js?libraries=geometry&key=AIzaSyCsZWmFuiHNNNIh5GSgkz6bhJuWhbtk21g';
+    googleApi.onload = function ()
+                       {
+                           map = new google.maps.Map (document.getElementById ('mapDiv'),
+                                                      { center: { lat: 59, lng: 9 }, zoom: 10, disableDefaultUI: true, mapTypeControl: false,
+                                                        panControl: false, rotateControl: false, clickableIcons: false, streetViewControl: false });
+                       };*/
 }

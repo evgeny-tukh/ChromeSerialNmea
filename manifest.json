@@ -10,5 +10,7 @@
 
   "icons": { "16": "res/icn-16x16.png", "128": "res/icn-128x128.png" },
 
-  "permissions": [ "serial" ]
+  "externally_connectable": { "ids": ["*"], "matches": ["*://localhost/*", "*://ya.ru/*"] },
+
+  "permissions": ["serial", "background"]
 }
